@@ -9,8 +9,8 @@ const COOKIE_NAME = "chat_plus_collapsed_categories";
 function getCategoryNameOverrides() {
   const overrides = new Map();
   const raw = settings.category_name_overrides || "";
-  raw.split("\n").forEach((line) => {
-    const [original, display] = line.split("|").map((s) => s.trim());
+  raw.split("|").forEach((entry) => {
+    const [original, display] = entry.split(":").map((s) => s.trim());
     if (original && display) {
       overrides.set(original, display);
     }
