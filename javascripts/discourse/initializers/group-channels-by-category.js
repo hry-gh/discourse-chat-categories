@@ -87,9 +87,19 @@ function groupChannelsByCategory(channelsManager) {
     grouped.get(categoryName).channelIds.push(channel.id);
   });
 
+  const sortOrder = (settings.category_sort_order || "").split("|").map((s) => s.trim()).filter(Boolean);
+
   return Array.from(grouped.values()).sort((a, b) => {
     if (a.name === "Other") return 1;
     if (b.name === "Other") return -1;
+
+    const aIndex = sortOrder.indexOf(a.name);
+    const bIndex = sortOrder.indexOf(b.name);
+
+    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+    if (aIndex !== -1) return -1;
+    if (bIndex !== -1) return 1;
+
     return a.displayName.localeCompare(b.displayName);
   });
 }

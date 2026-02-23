@@ -17,3 +17,8 @@ category_name_overrides:
   type: list
   default: ""
   description: "Remap category display names. Format: Original Name:Display Name"
+
+category_sort_order:
+  type: list
+  default: ""
+  description: "Custom category order. List category names in desired order. Unlisted categories appear at the end alphabetically."
