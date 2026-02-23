@@ -12,3 +12,9 @@ collapse_categories_by_default:
   type: bool
   default: false
   description: "Start with all category groups collapsed"
+
+category_name_overrides:
+  type: text
+  default: ""
+  description: "Remap category display names. One per line: Original Name|Display Name"
+  textarea: true

@@ -6,6 +6,18 @@ import cookie, { removeCookie } from "discourse/lib/cookie";
 const CATEGORY_HEADER_CLASS = "chat-category-group-header";
 const COOKIE_NAME = "chat_plus_collapsed_categories";
 
+function getCategoryNameOverrides() {
+  const overrides = new Map();
+  const raw = settings.category_name_overrides || "";
+  raw.split("\n").forEach((line) => {
+    const [original, display] = line.split("|").map((s) => s.trim());
+    if (original && display) {
+      overrides.set(original, display);
+    }
+  });
+  return overrides;
+}
+
 function getCollapsedCategories() {
   const value = cookie(COOKIE_NAME);
   if (!value) return new Set();
@@ -50,6 +62,7 @@ function getChannelIdFromElement(el) {
 function groupChannelsByCategory(channelsManager) {
   const channels = channelsManager?.publicMessageChannels || [];
   const grouped = new Map();
+  const nameOverrides = getCategoryNameOverrides();
 
   channels.forEach((channel) => {
     const categoryName =
@@ -65,6 +78,7 @@ function groupChannelsByCategory(channelsManager) {
     if (!grouped.has(categoryName)) {
       grouped.set(categoryName, {
         name: categoryName,
+        displayName: nameOverrides.get(categoryName) || categoryName,
         color: categoryColor,
         channelIds: [],
       });
@@ -76,7 +90,7 @@ function groupChannelsByCategory(channelsManager) {
   return Array.from(grouped.values()).sort((a, b) => {
     if (a.name === "Other") return 1;
     if (b.name === "Other") return -1;
-    return a.name.localeCompare(b.name);
+    return a.displayName.localeCompare(b.displayName);
   });
 }
 
@@ -100,7 +114,7 @@ function createCategoryHeader(group, collapsed, channelElements, isDrawer = fals
 
   const nameSpan = document.createElement("span");
   nameSpan.className = "category-name";
-  nameSpan.textContent = group.name;
+  nameSpan.textContent = group.displayName;
   inner.appendChild(nameSpan);
 
   const iconWrapper = document.createElement("span");
