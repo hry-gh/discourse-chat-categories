@@ -1,0 +1,14 @@
+group_channels_by_category:
+  type: bool
+  default: true
+  description: "Group chat channels by their parent category in the sidebar"
+
+show_category_color:
+  type: bool
+  default: true
+  description: "Show category color indicator next to category headers"
+
+collapse_categories_by_default:
+  type: bool
+  default: false
+  description: "Start with all category groups collapsed"

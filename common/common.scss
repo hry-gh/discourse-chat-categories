@@ -1,0 +1,92 @@
+// Chat Channels by Category - Shared header styles
+.chat-category-group-header {
+  .category-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.35em 0.5em;
+    font-weight: 600;
+    font-size: var(--font-down-1);
+    color: var(--primary-high);
+    cursor: pointer;
+    user-select: none;
+    border-radius: var(--d-border-radius);
+    transition: background-color 0.15s ease;
+    margin: 0.25em 0;
+
+    &:hover {
+      background: var(--d-sidebar-highlight-background);
+    }
+  }
+
+  .category-color-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .category-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .category-caret {
+    display: flex;
+    align-items: center;
+
+    .d-icon,
+    svg {
+      width: 12px;
+      height: 12px;
+      color: var(--primary-medium);
+      fill: currentColor;
+      transition: transform 0.15s ease;
+    }
+  }
+
+  &[data-collapsed="true"] .category-caret {
+    .d-icon,
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+// Sidebar styling
+[data-section-name="chat-channels"] {
+  .sidebar-section-content.grouped-by-category {
+    // Channels within a group - add slight indent
+    li.sidebar-section-link-wrapper:not(.chat-category-group-header) {
+      padding-left: 1em;
+
+      &[data-chat-plus-collapsed="true"] {
+        display: none !important;
+      }
+    }
+
+    // First header doesn't need top margin
+    .chat-category-group-header:first-child .category-header-inner {
+      margin-top: 0;
+    }
+  }
+}
+
+// Drawer styling
+#public-channels.channels-list-container.grouped-by-category {
+  // Channels within a group - add slight indent
+  .chat-channel-row:not(.chat-category-group-header) {
+    margin-left: 1em;
+
+    &[data-chat-plus-collapsed="true"] {
+      display: none !important;
+    }
+  }
+
+  // First header doesn't need top margin
+  .chat-category-group-header:first-child .category-header-inner {
+    margin-top: 0;
+  }
+}

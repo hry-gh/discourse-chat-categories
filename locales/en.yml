@@ -1,0 +1,6 @@
+en:
+  theme_metadata:
+    settings:
+      group_channels_by_category: "Group chat channels by their parent category in the sidebar"
+      show_category_color: "Show category color indicator next to category headers"
+      collapse_categories_by_default: "Start with all category groups collapsed"
